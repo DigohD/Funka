@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.Semaphore;
 
+import android.R.style;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -29,12 +30,13 @@ public class MainView extends View{
 	
 	Ground g;
 	
+	int points = 0;
+	
 	float cX = 200, cY = 500;
 	
     public MainView(Context context){
         super(context);
         paint.setColor(Color.RED);
-        
         
         g = new Ground(0, 650, 2000, 200);
         player = new Player(cX, cY, paint);
@@ -42,16 +44,16 @@ public class MainView extends View{
 
     @Override
     public void onDraw(Canvas canvas) {
-//        canvas.drawLine(cX-00, cY-100, cX+50, cY+100, paint);
-//        canvas.drawLine(cX+50, cY-100, cX-50, cY+100, paint);
-
+    	// x 1920
+    	// y 885
     	
-//    	Rect r = new Rect();
-//    	
-//    	r.set((int)player.getX(), (int)player.getY(),(int) player.getX() + 200,(int) player.getY() + 200);
-//    	
-//    	int px = (int) player.getX();
-//    	int py = (int) player.getY();
+    	float newWidth = canvas.getWidth();
+    	float newHeight = canvas.getHeight();
+    	
+    	float finalWidth = newWidth / 1920;
+    	float finalHeight = newHeight / 885;
+    	
+    	canvas.scale(finalWidth, finalHeight);
     	
     	try {
 			s.acquire();
@@ -70,6 +72,11 @@ public class MainView extends View{
     	paint.setStyle(Paint.Style.FILL);
     	canvas.drawRect(player.getRect(), paint);
     	
+    	paint.setColor(Color.WHITE);
+    	paint.setStyle(Paint.Style.FILL);
+    	paint.setTextScaleX(3);
+    	paint.setTextSize(50);
+    	canvas.drawText("Score: " + points, 40, 80, paint);
     	
     	
         
@@ -126,6 +133,8 @@ public class MainView extends View{
     	g.tick();
     	
     	player.tick(null);
+    	
+    	points++;
     }
     
     private void jump(){
