@@ -18,11 +18,15 @@ public class Player {
 		rect = new Rect((int)x, (int)y, (int)x + 200, (int)y + 200);
 	}
 	
-	public void tick(Obstacle o){
+	public void tick(){
 		rect.set((int)x, (int) y,  (int)x + 200,  (int)y + 200);
 		
-//		if(rect.intersect(o.getRect()))
-//			live = false;
+		
+	}
+	
+	public void collision(Obstacle o){
+		if(rect.intersect(o.getRect()))
+			live = false;
 	}
 	
 	public void draw(Canvas canvas){

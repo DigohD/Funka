@@ -130,9 +130,17 @@ public class MainView extends View{
     		x.tick();
     	s.release();
     	
+    	for(int i = 0; i < g.getObstacles().size(); i++){
+    		player.collision(g.getObstacles().get(i));
+    		if(!player.isLive()) System.out.println("Collision");
+    			
+    		
+    	}
+    	
     	g.tick();
     	
-    	player.tick(null);
+    	
+    	player.tick();
     	
     	points++;
     }

@@ -49,5 +49,9 @@ public class Ground {
 			c.drawRect(o.getRect(), p);
 		}
 	}
+	
+	public List<Obstacle> getObstacles(){
+		return obstacles;
+	}
 
 }
