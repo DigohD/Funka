@@ -26,6 +26,10 @@ public class MainView extends View{
 	boolean jump;
 	int jumpStacks;
 	
+	float finalWidth;
+	float finalHeight;
+	boolean ratioCalc;
+	
 	Player player;
 	
 	Ground g;
@@ -47,11 +51,13 @@ public class MainView extends View{
     	// x 1920
     	// y 885
     	
-    	float newWidth = canvas.getWidth();
-    	float newHeight = canvas.getHeight();
-    	
-    	float finalWidth = newWidth / 1920;
-    	float finalHeight = newHeight / 885;
+    	if(!ratioCalc){
+    		float newWidth = canvas.getWidth();
+        	float newHeight = canvas.getHeight();
+        	
+        	finalWidth = newWidth / 1920;
+        	finalHeight = newHeight / 885;
+    	}
     	
     	canvas.scale(finalWidth, finalHeight);
     	
