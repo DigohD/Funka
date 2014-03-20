@@ -25,8 +25,8 @@ public class MainView extends View{
 
     @Override
     public void onDraw(Canvas canvas) {
-            canvas.drawLine(cX-100, cY-100, cX+100, cY+100, paint);
-            canvas.drawLine(cX+100, cY-100, cX-100, cY+100, paint);
+        canvas.drawLine(cX-100, cY-100, cX+100, cY+100, paint);
+        canvas.drawLine(cX+100, cY-100, cX-100, cY+100, paint);
     }
 	
     @Override
@@ -62,6 +62,11 @@ public class MainView extends View{
     	// Schedules a repaint.
     	invalidate();
     	return true;
+    }
+    
+    public void tick(){
+    	cX++;
+    	cY++;
     }
     
 }
