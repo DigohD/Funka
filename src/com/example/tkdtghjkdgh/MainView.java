@@ -1,6 +1,8 @@
 package com.example.tkdtghjkdgh;
 
+import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.Semaphore;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -16,17 +18,39 @@ public class MainView extends View{
 	Paint paint = new Paint();
 	Random rnd = new Random();
 	
-	int cX, cY;
+	ArrayList<Stripes> stripes = new ArrayList<Stripes>();
 	
-    public MainView(Context context) {
+	Semaphore s = new Semaphore(1);
+	
+	boolean jump;
+	int jumpStacks;
+	
+	float cX, cY;
+	
+    public MainView(Context context){
         super(context);
         paint.setColor(Color.RED);
+        
+        cX = 250;
+        cY = 600;
     }
 
     @Override
     public void onDraw(Canvas canvas) {
         canvas.drawLine(cX-00, cY-100, cX+50, cY+100, paint);
         canvas.drawLine(cX+50, cY-100, cX-50, cY+100, paint);
+        
+        try {
+			s.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        for(Stripes x : stripes){
+        	paint.setColor(Color.WHITE);
+    		canvas.drawLine(x.getX(), x.getY(), x.getX() + 100, x.getY(), paint);
+    	}
+        s.release();
     }
 	
     @Override
@@ -35,8 +59,7 @@ public class MainView extends View{
 	    float eventY = event.getY();
 	
 	    if(event.getAction() == event.ACTION_DOWN){
-	    	cX = (int) eventX;
-	    	cY = (int) eventY;
+	    	jump = true;
 		    switch(rnd.nextInt(5)){
 		    	case 0:
 		    		paint.setColor(Color.BLUE);
@@ -54,9 +77,6 @@ public class MainView extends View{
 		    		paint.setColor(Color.RED);
 		    		break;
 		    }
-	    }else if(event.getAction() == event.ACTION_MOVE){
-	    	cX = (int) eventX;
-	    	cY = (int) eventY;
 	    }
       
     	// Schedules a repaint.
@@ -65,8 +85,33 @@ public class MainView extends View{
     }
     
     public void tick(){
-    	cX++;
-    	cY++;
+    	if(jump)
+    		jump();
+    	
+    	try {
+			s.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	if(rnd.nextInt(2) == 0)
+    		stripes.add(new Stripes());
+    	
+    	for(Stripes x : stripes)
+    		x.tick();
+    	s.release();
+    }
+    
+    private void jump(){
+    	jumpStacks++;
+    	if(jumpStacks < 15)
+    		cY -= 16;
+    	else if(jumpStacks >= 15 && jumpStacks < 29)
+    		cY += 16;
+    	else if(jumpStacks >= 29){
+    		jump = false;
+    		jumpStacks = 0;
+    	}
     }
     
 }
