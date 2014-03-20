@@ -25,8 +25,8 @@ public class MainView extends View{
 
     @Override
     public void onDraw(Canvas canvas) {
-        canvas.drawLine(cX-100, cY-100, cX+100, cY+100, paint);
-        canvas.drawLine(cX+100, cY-100, cX-100, cY+100, paint);
+        canvas.drawLine(cX-00, cY-100, cX+50, cY+100, paint);
+        canvas.drawLine(cX+50, cY-100, cX-50, cY+100, paint);
     }
 	
     @Override

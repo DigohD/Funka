@@ -26,7 +26,6 @@ public class MainActivity extends Activity implements Runnable{
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         
         (new Thread(this)).start();
-//        run();
     }
 	
 	public void run() {
