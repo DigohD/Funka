@@ -22,7 +22,7 @@ public class Ground {
 		this.x = x;
 		this.y = y;
 		p = new Paint(Color.BLUE);
-		rect = new Rect(x, y, width, height);
+		rect = new Rect(x, y, x + width, y + height);
 		spawnLevel();
 	}
 	
@@ -30,18 +30,24 @@ public class Ground {
 		int x = 10;
 		for(int i = 0; i < 50; i++){
 			obstacles.add(new Obstacle(x, y+20));
-			x += 10;
+			x += 1500;
 		}
 	}
 	
 	public void tick(){
-		x--;
+		for(Obstacle o : obstacles)
+			o.tick();
 	}
 	
 	public void draw(Canvas c){
+		p.setColor(Color.BLUE);
+    	p.setStyle(Paint.Style.FILL);
 		c.drawRect(rect, p);
-		for(Obstacle o : obstacles)
-			c.drawRect(o.getRect(), o.getPaint());
+		for(Obstacle o : obstacles){
+			p.setColor(Color.GREEN);
+	    	p.setStyle(Paint.Style.FILL);
+			c.drawRect(o.getRect(), p);
+		}
 	}
 
 }

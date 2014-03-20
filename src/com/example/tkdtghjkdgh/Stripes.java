@@ -17,7 +17,7 @@ public class Stripes {
 	}
 
 	public void tick(){
-		x = x - 40;
+		x = x - 75;
 	}
 
 	public int getY() {

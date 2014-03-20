@@ -13,16 +13,19 @@ public class Obstacle {
 	
 	public Obstacle(float x, float y){
 		this.x = x;
-		this.y = y;
+		this.y = y - 60;
 		p = new Paint(Color.RED);
-		rect = new Rect((int)x, (int)y, 20, 20);
+		rect = new Rect((int)x, (int)y, (int)x + 80, (int)y + 80);
 	}
 	
-	public void tick(Obstacle o){
-		rect.set((int)x, (int) y, 20, 20);	
+	public void tick(){
+		x = x - 40;
+		rect.set((int)x, (int) y, (int)x + 80, (int)y + 80);	
 	}
 	
 	public void draw(Canvas canvas){
+		p.setColor(Color.GREEN);
+    	p.setStyle(Paint.Style.FILL);
 		canvas.drawRect(rect, p);
 	}
 

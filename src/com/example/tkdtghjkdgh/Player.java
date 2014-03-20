@@ -15,18 +15,18 @@ public class Player {
 		this.x = x;
 		this.y = y;
 		this.p = p;
-		rect = new Rect((int)x, (int)y, 20, 20);
+		rect = new Rect((int)x, (int)y, (int)x + 200, (int)y + 200);
 	}
 	
 	public void tick(Obstacle o){
-		rect.set((int)x, (int) y, 20, 20);
+		rect.set((int)x, (int) y,  (int)x + 200,  (int)y + 200);
 		
-		if(rect.intersect(o.getRect()))
-			live = false;
+//		if(rect.intersect(o.getRect()))
+//			live = false;
 	}
 	
 	public void draw(Canvas canvas){
-		canvas.drawRect(rect, p);
+		
 	}
 	
 	public boolean isLive(){

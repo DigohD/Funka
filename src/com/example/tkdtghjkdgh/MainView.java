@@ -25,25 +25,37 @@ public class MainView extends View{
 	boolean jump;
 	int jumpStacks;
 	
-	float cX, cY;
+	Player player;
+	
+	Ground g;
+	
+	float cX = 200, cY = 500;
 	
     public MainView(Context context){
         super(context);
         paint.setColor(Color.RED);
         
-        cX = 250;
-        cY = 600;
+        
+        g = new Ground(0, 650, 2000, 200);
+        player = new Player(cX, cY, paint);
     }
 
     @Override
     public void onDraw(Canvas canvas) {
-        canvas.drawLine(cX-00, cY-100, cX+50, cY+100, paint);
-        canvas.drawLine(cX+50, cY-100, cX-50, cY+100, paint);
-        
-        try {
+//        canvas.drawLine(cX-00, cY-100, cX+50, cY+100, paint);
+//        canvas.drawLine(cX+50, cY-100, cX-50, cY+100, paint);
+
+    	
+//    	Rect r = new Rect();
+//    	
+//    	r.set((int)player.getX(), (int)player.getY(),(int) player.getX() + 200,(int) player.getY() + 200);
+//    	
+//    	int px = (int) player.getX();
+//    	int py = (int) player.getY();
+    	
+    	try {
 			s.acquire();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         for(Stripes x : stripes){
@@ -51,6 +63,16 @@ public class MainView extends View{
     		canvas.drawLine(x.getX(), x.getY(), x.getX() + 100, x.getY(), paint);
     	}
         s.release();
+    	
+    	g.draw(canvas);
+    	
+    	paint.setColor(Color.RED);
+    	paint.setStyle(Paint.Style.FILL);
+    	canvas.drawRect(player.getRect(), paint);
+    	
+    	
+    	
+        
     }
 	
     @Override
@@ -100,6 +122,10 @@ public class MainView extends View{
     	for(Stripes x : stripes)
     		x.tick();
     	s.release();
+    	
+    	g.tick();
+    	
+    	player.tick(null);
     }
     
     private void jump(){
@@ -112,6 +138,8 @@ public class MainView extends View{
     		jump = false;
     		jumpStacks = 0;
     	}
+    	player.setX(cX);
+    	player.setY(cY);
     }
     
 }
