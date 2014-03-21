@@ -17,6 +17,8 @@ public class MainView extends View{
 	Paint paint = new Paint();
 	Random rnd = new Random();
 	
+	static MediaPlayer mp; 
+	
 	ArrayList<Stripes> stripes = new ArrayList<Stripes>();
 	
 	Semaphore s = new Semaphore(1);
@@ -49,10 +51,9 @@ public class MainView extends View{
     }
 
     public void playSound(Context context){      
-    	MediaPlayer mp = MediaPlayer.create(context, R.raw.n);
+    	mp = MediaPlayer.create(context, R.raw.n);
     	if(!mp.isPlaying()){
         	mp.start();
-        	mp.release();
     	}
     }
     
