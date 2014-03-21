@@ -27,7 +27,7 @@ public class Ground {
 	}
 	
 	private void spawnLevel(){
-		int x = 10;
+		int x = 3500;
 		for(int i = 0; i < 50; i++){
 			obstacles.add(new Obstacle(x, y+20));
 			x += 1500;

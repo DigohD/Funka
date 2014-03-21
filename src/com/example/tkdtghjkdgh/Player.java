@@ -20,13 +20,16 @@ public class Player {
 	
 	public void tick(){
 		rect.set((int)x, (int) y,  (int)x + 200,  (int)y + 200);
-		
-		
 	}
 	
 	public void collision(Obstacle o){
-		if(rect.intersect(o.getRect()))
+		if(rect.intersect(o.getRect())){
+			
+			System.out.println("O" + o.getRect().toString());
+			System.out.println("P" + rect.toString());
+			
 			live = false;
+		}
 	}
 	
 	public void draw(Canvas canvas){

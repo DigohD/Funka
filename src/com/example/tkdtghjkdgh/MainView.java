@@ -4,14 +4,12 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.Semaphore;
 
-import android.R.style;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
+import android.media.MediaPlayer;
 import android.view.MotionEvent;
-import android.view.SurfaceView;
 import android.view.View;
 
 public class MainView extends View{
@@ -28,13 +26,15 @@ public class MainView extends View{
 	
 	float finalWidth;
 	float finalHeight;
-	boolean ratioCalc;
+	boolean ratioCalc, music;
 	
 	Player player;
 	
 	Ground g;
 	
 	int points = 0;
+	
+	Context c;
 	
 	float cX = 200, cY = 500;
 	
@@ -44,12 +44,27 @@ public class MainView extends View{
         
         g = new Ground(0, 650, 2000, 200);
         player = new Player(cX, cY, paint);
+        
+        c = context;
     }
 
+    public void playSound(Context context){      
+    	MediaPlayer mp = MediaPlayer.create(context, R.raw.n);
+    	if(!mp.isPlaying()){
+        	mp.start();
+        	mp.release();
+    	}
+    }
+    
     @Override
     public void onDraw(Canvas canvas) {
     	// x 1920
     	// y 885
+    	
+    	if(!music){
+    		playSound(c);
+    		music = true;
+    	}
     	
     	if(!ratioCalc){
     		float newWidth = canvas.getWidth();
@@ -138,8 +153,9 @@ public class MainView extends View{
     	
     	for(int i = 0; i < g.getObstacles().size(); i++){
     		player.collision(g.getObstacles().get(i));
-    		if(!player.isLive()) System.out.println("Collision");
+    		if(!player.isLive()){
     			
+    		}
     		
     	}
     	
@@ -154,9 +170,9 @@ public class MainView extends View{
     private void jump(){
     	jumpStacks++;
     	if(jumpStacks < 15)
-    		cY -= 16;
+    		cY -= 46;
     	else if(jumpStacks >= 15 && jumpStacks < 29)
-    		cY += 16;
+    		cY += 46;
     	else if(jumpStacks >= 29){
     		jump = false;
     		jumpStacks = 0;
