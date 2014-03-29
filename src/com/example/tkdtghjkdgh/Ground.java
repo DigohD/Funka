@@ -15,6 +15,10 @@ public class Ground {
 	
 	private int x, y;
 	private Rect rect;
+	public List<Obstacle> getObstacles() {
+		return obstacles;
+	}
+
 	private Random r;
 	private Paint p;
 	

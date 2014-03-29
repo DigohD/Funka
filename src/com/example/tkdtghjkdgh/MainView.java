@@ -123,9 +123,17 @@ public class MainView extends View{
     		x.tick();
     	s.release();
     	
+    	for(Obstacle o : g.getObstacles()){
+    		player.collisionCheck(o);
+    		if(!player.isLive()){
+    			System.out.println("DEAD");
+    			//System.exit(0);
+    		}
+    	}
+    	
     	g.tick();
     	
-    	player.tick(null);
+    	player.tick();
     }
     
     private void jump(){

@@ -67,7 +67,7 @@ public class MainActivity extends Activity implements Runnable{
 			if((System.currentTimeMillis() - timer) >= 1000){
 				timer += 1000;
 				//Display.getFrame().setTitle(TITLE + "  ||  " + tps + " tps, " + fps +  " fps");
-//				System.out.println(tps + " tps, " + fps +  " fps");
+				System.out.println(tps + " tps, " + fps +  " fps");
 				tps = 0;
 				fps = 0;
 			}
